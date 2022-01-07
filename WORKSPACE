@@ -1,5 +1,6 @@
 workspace(name = "envoy")
 
+# <<< haitao - workaround
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
@@ -10,10 +11,7 @@ http_archive(
         "https://github.com/bazelbuild/stardoc/releases/download/0.5.0/stardoc-0.5.0.tar.gz",
     ],
 )
-
-load("@io_bazel_stardoc//:setup.bzl", "stardoc_repositories")
-
-stardoc_repositories()
+# haitao - workaround >>>
 
 load("//bazel:api_binding.bzl", "envoy_api_binding")
 
@@ -22,6 +20,10 @@ envoy_api_binding()
 load("//bazel:api_repositories.bzl", "envoy_api_dependencies")
 
 envoy_api_dependencies()
+
+load("@io_bazel_stardoc//:setup.bzl", "stardoc_repositories")
+
+stardoc_repositories()
 
 load("//bazel:repositories.bzl", "envoy_dependencies")
 
@@ -38,24 +40,3 @@ install_deps()
 load("//bazel:dependency_imports.bzl", "envoy_dependency_imports")
 
 envoy_dependency_imports()
-
-load(
-    "@io_bazel_rules_dotnet//dotnet:defs.bzl",
-    "dotnet_register_toolchains",
-    "dotnet_repositories_nugets",
-)
-dotnet_register_toolchains()
-
-dotnet_repositories_nugets()
-
-load("@rules_proto_grpc//csharp:repositories.bzl", rules_proto_grpc_csharp_repos = "csharp_repos")
-
-rules_proto_grpc_csharp_repos()
-
-load("@rules_proto_grpc//csharp/nuget:nuget.bzl", "nuget_rules_proto_grpc_packages")
-
-nuget_rules_proto_grpc_packages()
-
-load("@io_bazel_rules_dotnet//dotnet:deps.bzl", "dotnet_repositories")
-
-dotnet_repositories() 

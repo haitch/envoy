@@ -3,6 +3,10 @@ def _default_envoy_api_impl(ctx):
 load(":repositories.bzl", "api_dependencies")
 api_dependencies()
 
+load("@io_bazel_stardoc//:setup.bzl", "stardoc_repositories")
+
+stardoc_repositories()
+
 load(
     "@io_bazel_rules_dotnet//dotnet:defs.bzl",
     "dotnet_register_toolchains",
